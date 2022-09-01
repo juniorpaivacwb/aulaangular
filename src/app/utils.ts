@@ -6,3 +6,11 @@ export function ValidateCEP(control: AbstractControl) {
   }
   return {invalid:true};
 }
+
+export async function delay(t){
+  return new Promise((resolve,reject)=>{
+    setTimeout(() => {
+    resolve('')
+    }, t);
+  })
+}

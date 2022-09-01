@@ -17,7 +17,9 @@ import { MatSortModule } from '@angular/material/sort';
 import { ɵDomSharedStylesHost } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
-import { PessoaComponent } from './pessoa/pessoa.component'
+import { PessoaComponent } from './pessoa/pessoa.component';
+import { AdministrativoComponent } from './administrativo/administrativo.component';
+import { LoginComponent } from './login/login.component'
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = {
   validation: false,
 };
@@ -26,7 +28,9 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = {
   declarations: [
     AppComponent,
     CadastroPessoaDialogComponent,
-    PessoaComponent
+    PessoaComponent,
+    AdministrativoComponent,
+    LoginComponent
   ],
   imports: [
     

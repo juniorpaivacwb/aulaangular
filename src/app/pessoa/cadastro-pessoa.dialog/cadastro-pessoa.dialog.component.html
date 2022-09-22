@@ -11,7 +11,7 @@
         </mat-form-field>
         <mat-form-field appearance="fill">
             <mat-label>CEP</mat-label>
-            <input [formControl]="form.get('cep')" matInput mask="00000-000" type="text">
+            <input [formControl]="form.get('cep')" matInput  type="text">
             <mat-error>CEP inválido</mat-error>
         </mat-form-field>
         {{form.get('cep').errors | json}}

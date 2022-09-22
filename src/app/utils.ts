@@ -1,6 +1,7 @@
 import { AbstractControl } from '@angular/forms';
 
 export function ValidateCEP(control: AbstractControl) {
+  console.log(control.value)
   if (control.value.length ==8) {
     return  null
   }

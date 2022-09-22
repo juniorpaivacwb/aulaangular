@@ -8,34 +8,43 @@ import { delay } from './utils';
 })
 export class AppService {
 
-  isLogged= new BehaviorSubject(false)
-  constructor(private http:HttpClient) { }
+  isLogged = new BehaviorSubject(false)
+  constructor(private http: HttpClient) { }
 
-  async login(user,pass){
+  async login(user, pass) {
     await delay(2000)
-    if(user == 'teste' && pass =='teste'){
+    if (user == 'teste' && pass == 'teste') {
       this.isLogged.next(true)
       return Promise.resolve('')
-    }else{
+    } else {
       return Promise.reject('')
     }
   }
-  procurarCep(cep){
+
+  procurarCep(cep) {
     return this.http.get(`http://viacep.com.br/ws/${cep}/json/`) as Observable<iCep>
+  }
+
+  adicionar(pessoa) {
+    return this.http.post('http://localhost:3000/adicionar', pessoa)
+  }
+
+  listarTodos() {
+    return this.http.post('http://localhost:3000/listar', null)
   }
 }
 
-interface iCep{
-  
-    "cep":string,
-    "logradouro":string,
-    "complemento":string,
-    "bairro":string,
-    "localidade":string,
-    "uf":string,
-    "ibge":string,
-    "gia":string,
-    "ddd":string,
-    "siafi":string,
-  
+interface iCep {
+
+  "cep": string,
+  "logradouro": string,
+  "complemento": string,
+  "bairro": string,
+  "localidade": string,
+  "uf": string,
+  "ibge": string,
+  "gia": string,
+  "ddd": string,
+  "siafi": string,
+
 }

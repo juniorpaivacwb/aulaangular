@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { AppService } from '../app.service';
 import { CadastroPessoaDialogComponent } from './cadastro-pessoa.dialog/cadastro-pessoa.dialog.component';
 
 @Component({
@@ -13,7 +14,7 @@ import { CadastroPessoaDialogComponent } from './cadastro-pessoa.dialog/cadastro
 export class PessoaComponent implements AfterViewInit {
   title = 'my-app';
   nome: string = ''
-  
+
   displayedColumns: string[] = ['acoes', 'id', 'nome', 'sobrenome', 'estado', 'cidade', 'logradouro'];
   dataSource: MatTableDataSource<Pessoa>;
 
@@ -22,14 +23,16 @@ export class PessoaComponent implements AfterViewInit {
 
 
   constructor(
-    public dialog: MatDialog //matdialog é usado para abrir e fechar janelas
+    public dialog: MatDialog, //matdialog é usado para abrir e fechar janelas
+    public service: AppService
   ) {
-    this.dataSource = new MatTableDataSource([new Pessoa('1','nome','sobrenome')]);
+    this.dataSource = new MatTableDataSource([]);
   }
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+    this.listar()
   }
 
   applyFilter(event: Event) {
@@ -40,6 +43,7 @@ export class PessoaComponent implements AfterViewInit {
       this.dataSource.paginator.firstPage();
     }
   }
+
   openDialog() {
     this.dialog.open(CadastroPessoaDialogComponent, {
       disableClose: true
@@ -47,37 +51,51 @@ export class PessoaComponent implements AfterViewInit {
       if (!r) {
         return
       }
-      this.dataSource.data.push(r)
-      this.dataSource.filter=''
+      this.listar()
     })
-  
+
   }
-editar(pessoa: Pessoa){
-  this.dialog.open(CadastroPessoaDialogComponent,{
-    disableClose:true,
-    data:pessoa
-  }).afterClosed().subscribe((r) => {
-    if(!r) return //se r for  falso 
-    for (let pessoa of this.dataSource.data){
-      if (pessoa.id == r.id){
-        Object.assign(pessoa, r)
+
+  editar(pessoa: Pessoa) {
+    this.dialog.open(CadastroPessoaDialogComponent, {
+      disableClose: true,
+      data: pessoa
+    }).afterClosed().subscribe((r) => {
+      if (!r) return //se r for  falso 
+      for (let pessoa of this.dataSource.data) {
+        if (pessoa.id == r.id) {
+          Object.assign(pessoa, r)
+        }
       }
-    }
-  })
-}
-remover(pessoa:Pessoa){
-  this.dataSource.data = this.dataSource.data.filter(item => {
-    if(item.id == pessoa.id) return false
-    return true
-  })
-}
+    })
+  }
+
+  remover(pessoa: Pessoa) {
+    this.dataSource.data = this.dataSource.data.filter(item => {
+      if (item.id == pessoa.id) return false
+      return true
+    })
+  }
+
+  listar() {
+    this.service.listarTodos().subscribe({
+      next: (r: any) => {
+        this.dataSource.data = r
+        this.dataSource.filter = ''
+      },
+      error: (e) => {
+        console.log(e)
+        alert(e)
+      }
+    })
+  }
 }
 
 
 
 export class Pessoa {
   constructor(
-    public id:string,
+    public id: string,
     public nome: string, //separado por vírgula porque é uma função
     public sobrenome: string,
     public endereco?: Endereco //? quer dizer que nao é obrigatória
@@ -89,6 +107,6 @@ export class Endereco {
     public estado: string,
     public cidade: string,
     public logradouro: string,
-  ){}
- 
+  ) { }
+
 }

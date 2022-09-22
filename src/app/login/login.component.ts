@@ -11,8 +11,8 @@ import { AppService } from '../app.service';
 export class LoginComponent implements OnInit {
   loading
   form= new FormGroup({
-    user: new FormControl(),
-    password: new FormControl()
+    user: new FormControl('teste'),
+    password: new FormControl('teste')
   })
 
   constructor(private service: AppService, private router: Router) { }

@@ -11,10 +11,9 @@
         </mat-form-field>
         <mat-form-field appearance="fill">
             <mat-label>CEP</mat-label>
-            <input [formControl]="form.get('cep')" matInput  type="text">
+            <input [formControl]="form.get('cep')" matInput mask="00000-000" [dropSpecialCharacters]="true"  type="text">
             <mat-error>CEP inválido</mat-error>
         </mat-form-field>
-        {{form.get('cep').errors | json}}
 
         <!-- <button mat-raised-button (click)="buscarCep()" > buscar cep</button> -->
         

@@ -17,7 +17,7 @@ export class CadastroPessoaDialogComponent implements OnInit {
     id: new FormControl(),
     nome: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]),
     sobrenome: new FormControl(''),
-    cep: new FormControl('', []), //ValidateCEP
+    cep: new FormControl('', [ValidateCEP]),
     estado: new FormControl(''),
     cidade: new FormControl(''),
     logradouro: new FormControl(''),
@@ -93,6 +93,7 @@ export class CadastroPessoaDialogComponent implements OnInit {
     this.service.procurarCep(cep).subscribe(
       {
         next: (r) => {
+          delete r.cep
           this.form.patchValue(r)
           this.form.get('estado').setValue(r.uf)
           this.form.get('cidade').setValue(r.localidade)

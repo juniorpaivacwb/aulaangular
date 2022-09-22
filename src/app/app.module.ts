@@ -24,6 +24,7 @@ import { EmpresaComponent } from './empresa/empresa.component';
 import { EmpresaDialogComponent } from './empresa/empresa.dialog/empresa.dialog.component'
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = {
   validation: false,
+  
 };
 
 @NgModule({

@@ -12,7 +12,7 @@ import { EmpresaDialogComponent } from './empresa.dialog/empresa.dialog.componen
 })
 export class EmpresaComponent implements AfterViewInit {
 
-  displayedColumns: string[] = ['acoes', 'id', 'nome', 'sobrenome', 'estado', 'cidade', 'logradouro'];
+  displayedColumns: string[] = ['acoes', 'id', 'nome', 'cnpj'];
   dataSource: MatTableDataSource<Empresa>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;

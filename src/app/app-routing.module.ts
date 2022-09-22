@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdministrativoComponent } from './administrativo/administrativo.component';
+import { EmpresaComponent } from './empresa/empresa.component';
 import { LoggedGuard } from './logged.guard';
 import { LoginComponent } from './login/login.component';
 import { PessoaComponent } from './pessoa/pessoa.component';
@@ -23,6 +24,11 @@ const routes: Routes = [
   {
     path:'administrativo',
     component: AdministrativoComponent,
+    canActivate:[LoggedGuard]
+  },
+  {
+    path:'empresa',
+    component: EmpresaComponent,
     canActivate:[LoggedGuard]
   }
   // {path:"test", component:null} 
